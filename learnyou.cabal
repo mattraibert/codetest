@@ -1,0 +1,25 @@
+name:                learnyou
+version:             0.1.0.0
+-- synopsis:            
+-- description:         
+license:             GPL-3
+license-file:        LICENSE
+author:              Matt Raibert
+maintainer:          mattraibert@gmail.com
+-- copyright:           
+category:            Text
+build-type:          Simple
+-- extra-source-files:  
+cabal-version:       >=1.10
+
+executable learnyou
+  hs-source-dirs: src
+  main-is: Main.hs
+  other-extensions:    OverloadedStrings, ScopedTypeVariables, NoMonomorphismRestriction, QuasiQuotes
+  build-depends:       
+    base >=4.6 && <4.7, 
+    text >=0.11 && <0.12,
+    tasty-hunit,
+    tasty
+
+  default-language:    Haskell2010
