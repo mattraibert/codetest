@@ -17,7 +17,7 @@ formatTest = "Output 1:\n#{output1}\nOutput 2:\n#{output2}\nOutput 3:\n#{output3
              format "#{output1}" "#{output2}" "#{output3}"
 
 genderThenLastName :: [Person] -> Text
-genderThenLastName people = T.concat (map showPerson people) 
+genderThenLastName people = T.intercalate "\n" (map showPerson people) 
 
 data Gender = Female | Male
 
@@ -38,5 +38,10 @@ showPerson :: Person -> Text
 showPerson (Person firstName' lastName' gender' birthDate' color') = T.intercalate " " [lastName', firstName', showGender gender', showDate birthDate', color']
 
 genderThenLastNameTests :: [TestTree]
-genderThenLastNameTests = [testCase "shows one person" ("Jay James Female 4/2/1979 Green" @=?
-                                                        genderThenLastName [Person "James" "Jay" Female (Date 1979 4 2) "Green"])]
+genderThenLastNameTests = [testCase "shows one person"
+                           ("Jay James Female 4/2/1979 Green" @=?
+                            genderThenLastName [Person "James" "Jay" Female (Date 1979 4 2) "Green"])
+                          , testCase "shows two people"
+                            ("Jay James Female 4/2/1979 Green\nWatertown Winston Male 12/18/1925 Orange" @=?
+                             genderThenLastName [Person "James" "Jay" Female (Date 1979 4 2) "Green"
+                                                , Person "Winston" "Watertown" Male (Date 1925 12 18) "Orange"])]
