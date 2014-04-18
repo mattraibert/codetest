@@ -4,6 +4,8 @@ module Person where
 import qualified Data.Text as T
 import Data.Text (Text)
 import Data.List
+import Data.Ord
+import Data.Monoid
 
 data Person = Person { firstName :: Text, lastName :: Text, gender :: Gender, birthDate :: Date, color :: Text } deriving (Eq)
 data Gender = Female | Male deriving (Show, Eq, Ord)
@@ -15,10 +17,13 @@ instance Show Date where
   show (Date year' month' day') = intercalate "/" (map show [month', day', year'])
 
 genderOrder :: Person -> Person -> Ordering
-genderOrder (Person _ _ g1 _ _) (Person _ _ g2 _ _) = compare g1 g2
+genderOrder = comparing gender
 
 lastNameOrder :: Person -> Person -> Ordering
-lastNameOrder (Person _ ln1 _ _ _) (Person _ ln2 _ _ _) = compare ln1 ln2
+lastNameOrder = comparing lastName
 
 birthDateOrder :: Person -> Person -> Ordering
-birthDateOrder  (Person _ _ _ bd1 _) (Person _ _ _ bd2 _) = compare bd1 bd2
+birthDateOrder = comparing birthDate
+
+genderThenLastNameOrder :: Person -> Person -> Ordering
+genderThenLastNameOrder = mappend (comparing gender) (comparing lastName)

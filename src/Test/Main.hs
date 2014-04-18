@@ -18,12 +18,15 @@ main = defaultMain $ testGroup "" [
     "Male" .==. show Male,
     "Female" .==. show Female],
 
-  testGroup "gender order" [
+  testGroup "sorting" [
     [Female, Male] .==. sort [Male, Female],
     [Female, Female] .==. sort [Female, Female],
     [jane, winston] .==. sortBy genderOrder [winston, jane],
     [jane, winston] .==. sortBy lastNameOrder [winston, jane],
-    [winston, wendy] .==. sortBy birthDateOrder [wendy, winston]],
+    [winston, jane] .==. sortBy (flip lastNameOrder) [winston, jane],
+    [winston, wendy] .==. sortBy birthDateOrder [wendy, winston],
+    [jane, wendy, antonin] .==. sortBy genderThenLastNameOrder [antonin, jane, wendy],
+    [jane, wendy, antonin] .==. sortBy genderThenLastNameOrder [wendy, antonin, jane]],
 
   testGroup "output 1" [
     "Jay Jane Female 4/2/1979 Green\nWatertown Winston Male 12/18/1925 Orange" .==. genderThenLastName [jane, winston]]]
@@ -31,6 +34,7 @@ main = defaultMain $ testGroup "" [
 jane = Person "Jane" "Jay" Female (Date 1979 4 2) "Green"
 winston = Person "Winston" "Watertown" Male (Date 1925 12 18) "Orange"
 wendy = Person "Wendy" "Watertown" Female (Date 1925 12 19) "Dark Orange"
+antonin = Person "Antonin" "Applebaum" Male (Date 1925 12 19) "Dark Gray"
 
 (.==.) :: (Show a, Eq a) => a -> a -> TestTree
 expected .==. actual = testCase ("expect " ++ show expected) (expected @=? actual)
