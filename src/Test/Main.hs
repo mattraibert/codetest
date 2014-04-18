@@ -16,27 +16,6 @@ formatTest :: Assertion
 formatTest = "Output 1:\n#{output1}\nOutput 2:\n#{output2}\nOutput 3:\n#{output3}\n" @=?
              format "#{output1}" "#{output2}" "#{output3}"
 
-genderThenLastName :: [Person] -> Text
-genderThenLastName people = T.intercalate "\n" (map showPerson people) 
-
-data Gender = Female | Male
-
-data Date = Date { year :: Integer, month :: Integer, day :: Integer }
-data Person = Person { firstName :: Text, lastName :: Text, gender :: Gender, birthDate :: Date, color :: Text }
-
-showGender :: Gender -> Text
-showGender Female = "Female"
-showGender Male = "Male"
-
-showText :: Show r => r -> Text
-showText = T.pack . show
-
-showDate :: Date -> Text
-showDate (Date year' month' day') = T.intercalate "/" (map showText [month', day', year'])
-
-showPerson :: Person -> Text
-showPerson (Person firstName' lastName' gender' birthDate' color') = T.intercalate " " [lastName', firstName', showGender gender', showDate birthDate', color']
-
 genderThenLastNameTests :: [TestTree]
 genderThenLastNameTests = [testCase "shows one person"
                            ("Jay James Female 4/2/1979 Green" @=?
