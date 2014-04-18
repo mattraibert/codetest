@@ -16,7 +16,8 @@ main = defaultMain $ testGroup "" [
     "Doodle Ralph Male 2/16/2012 Pink" .==. formatPerson (Person "Ralph" "Doodle" Male (Date 2012 2 16) "Pink"),
     "2/16/2012" .==. show (Date 2012 2 16),
     "Male" .==. show Male,
-    "Female" .==. show Female],
+    "Female" .==. show Female,
+    "Jay Jane Female 4/2/1979 Green\nWatertown Winston Male 12/18/1925 Orange" .==. formatPeople [jane, winston]],
 
   testGroup "sorting" [
     [Female, Male] .==. sort [Male, Female],
@@ -26,10 +27,8 @@ main = defaultMain $ testGroup "" [
     [winston, jane] .==. sortBy (flip lastNameOrder) [winston, jane],
     [winston, wendy] .==. sortBy birthDateOrder [wendy, winston],
     [jane, wendy, antonin] .==. sortBy genderThenLastNameOrder [antonin, jane, wendy],
-    [jane, wendy, antonin] .==. sortBy genderThenLastNameOrder [wendy, antonin, jane]],
+    [jane, wendy, antonin] .==. sortBy genderThenLastNameOrder [wendy, antonin, jane]]]
 
-  testGroup "output 1" [
-    "Jay Jane Female 4/2/1979 Green\nWatertown Winston Male 12/18/1925 Orange" .==. genderThenLastName [jane, winston]]]
 
 jane = Person "Jane" "Jay" Female (Date 1979 4 2) "Green"
 winston = Person "Winston" "Watertown" Male (Date 1925 12 18) "Orange"

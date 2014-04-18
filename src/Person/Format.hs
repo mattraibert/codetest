@@ -9,8 +9,8 @@ import Common
 formatPerson :: Person -> Text
 formatPerson (Person firstName' lastName' gender' birthDate' color') = T.intercalate " " [lastName', firstName', showText gender', showText birthDate', color']
 
-genderThenLastName :: [Person] -> Text
-genderThenLastName people = T.intercalate "\n" (map formatPerson people) 
+formatPeople :: [Person] -> Text
+formatPeople people = T.intercalate "\n" (map formatPerson people)
 
 format :: Text -> Text -> Text -> Text
 format one two three = T.concat ["Output 1:\n", one, "\nOutput 2:\n", two, "\nOutput 3:\n", three, "\n"]
