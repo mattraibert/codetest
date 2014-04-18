@@ -4,9 +4,7 @@ module Person.Format where
 import qualified Data.Text as T
 import Data.Text (Text)
 import Person
-
-showText :: Show s => s -> Text
-showText = T.pack . show
+import Common
 
 formatPerson :: Person -> Text
 formatPerson (Person firstName' lastName' gender' birthDate' color') = T.intercalate " " [lastName', firstName', showText gender', showText birthDate', color']
