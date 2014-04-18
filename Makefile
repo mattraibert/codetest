@@ -9,10 +9,10 @@ install:
 	cabal install -j
 
 test:
-	$(RUN) src/Test.hs
+	$(RUN) src/Test/Main.hs
 
 acceptance:
-	$(RUN) src/AcceptanceTest.hs
+	$(RUN) src/Test/Acceptance.hs
 
 clean:
 	rm -rf $(BUILDDIR) && rm $(BINDIR)/$(EXECUTABLE)

@@ -3,7 +3,7 @@ module Main where
 
 import qualified Data.Text as T
 
-import PeopleParsing
+import Person
 
 main :: IO ()
 main = do

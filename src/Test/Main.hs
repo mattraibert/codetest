@@ -1,12 +1,12 @@
 {-# Language OverloadedStrings, FlexibleInstances, TypeFamilies, NoMonomorphismRestriction, ScopedTypeVariables, FlexibleContexts #-}
-module Test where
+module Test.Main where
 
 import qualified Data.Text as T
 import Data.Text (Text)
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import PeopleParsing
+import Person
 
 main :: IO ()
 main = defaultMain $ testGroup "tests" [ testCase "can format three outputs nicely" formatTest,

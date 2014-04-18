@@ -1,0 +1,4 @@
+:set -package ghc
+:set -package ghc-paths
+:set -i. -isrc -idist/build/autogen
+:set -XOverloadedStrings -XFlexibleInstances -XTypeFamilies -XNoMonomorphismRestriction -XScopedTypeVariables -XFlexibleContexts

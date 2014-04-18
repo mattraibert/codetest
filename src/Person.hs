@@ -1,5 +1,5 @@
 {-# Language OverloadedStrings, FlexibleInstances, TypeFamilies, NoMonomorphismRestriction, ScopedTypeVariables, FlexibleContexts #-}
-module PeopleParsing where
+module Person where
 
 import qualified Data.Text as T
 import Data.Text (Text)

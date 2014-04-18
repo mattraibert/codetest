@@ -1,11 +1,11 @@
 {-# Language OverloadedStrings, FlexibleInstances, TypeFamilies, NoMonomorphismRestriction, ScopedTypeVariables, FlexibleContexts #-}
-module Test where
+module Test.Acceptance where
 
 import qualified Data.Text as T
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import PeopleParsing
+import Person
 
 main :: IO ()
 main = defaultMain $ testGroup "tests" [ testCase "compare to model output" acceptanceTest]
