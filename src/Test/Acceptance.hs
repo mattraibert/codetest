@@ -5,7 +5,8 @@ import qualified Data.Text as T
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Person
+import Person.Format
+import Common
 
 main :: IO ()
 main = defaultMain $ testGroup "tests" [ testCase "compare to model output" acceptanceTest]
@@ -16,4 +17,4 @@ acceptanceTest = do
   pipe <- readFileText "code_test_files/pipe.txt"
   comma <- readFileText "code_test_files/comma.txt"
   space <- readFileText "code_test_files/space.txt"
-  T.unpack model @=? T.unpack (crunch $ T.concat [pipe,comma,space])
+  T.unpack model @=? T.unpack (output $ T.concat [pipe,comma,space])
