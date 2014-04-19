@@ -3,8 +3,9 @@ module Test.Main where
 
 import Test.Tasty
 
-import qualified Test.Format as F
-import qualified Test.Sorting as S
+import qualified Test.Format as Format
+import qualified Test.Sort as Sort
+import qualified Test.Parse as Parse
 
 main :: IO ()
-main = defaultMain $ testGroup "" [F.tests, S.tests]
+main = defaultMain $ testGroup "" [Format.tests, Sort.tests, Parse.tests]

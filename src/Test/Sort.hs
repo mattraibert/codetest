@@ -1,5 +1,5 @@
 {-# Language OverloadedStrings, FlexibleInstances, TypeFamilies, NoMonomorphismRestriction, ScopedTypeVariables, FlexibleContexts #-}
-module Test.Sorting where
+module Test.Sort where
 
 import Data.List
 import Test.Tasty
