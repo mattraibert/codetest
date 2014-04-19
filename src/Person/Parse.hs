@@ -3,6 +3,7 @@ module Person.Parse where
 
 import Data.Text (Text)
 import qualified Data.Text as T
+import Data.Maybe
 
 import Common
 import Person
@@ -23,6 +24,9 @@ instance Parse Date where
     where extractMdy = (map readText) . (T.splitOn "/") . (T.replace "-" "/") . T.pack
           toDate [month', day', year'] = Just (Date year' month' day')
           toDate _ = Nothing
+
+parsePeople :: Parse p => Text -> [p]
+parsePeople raw = catMaybes $ map parseText (T.lines raw)
 
 instance Parse Person where
   parse raw
