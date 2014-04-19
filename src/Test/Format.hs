@@ -10,7 +10,7 @@ import Person.Format
 tests :: TestTree
 tests = testGroup "formatting for output" [
   "Output 1:\n[o1]\nOutput 2:\n[o2]\nOutput 3:\n[o3]\n" .==. format (Output "[o1]" "[o2]" "[o3]"),
-  "Doodle Ralph Male 2/16/2012 Pink" .==. format (Person "Ralph" "Doodle" Male (Date 2012 2 16) "Pink"),
+  "Kelly Sue Female 7/12/1959 Pink" .==. format (Person "Sue" "Kelly" Female (Date 1959 7 12) "Pink"),
   "2/16/2012" .==. format (Date 2012 2 16),
   "Male" .==. format Male,
   "Female" .==. format Female,

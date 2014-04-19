@@ -9,9 +9,24 @@ import Person.Parse
 
 tests :: TestTree
 tests = testGroup "parsing" [
-  Nothing .==. (parse "abc" :: Maybe Date),
-  Just (Date 1943 2 13) .==. parse "2/13/1943",
-  Just (Date 1943 2 13) .==. parse "2-13-1943",
-  Just Male .==. parse "Male",
-  Just Female .==. parse "Female",
-  Nothing .==. (parse "abc" :: Maybe Gender)]
+  (Nothing :: Maybe Date)   .==: "abc",
+  Just (Date 1943 2 13)     .==: "2/13/1943",
+  Just (Date 1943 2 13)     .==: "2-13-1943",
+  Just Male                 .==: "Male",
+  Just Female               .==: "Female",
+  Just Male                 .==: "M",
+  Just Female               .==: "F",
+  (Nothing :: Maybe Gender) .==: "abc",
+  Just neil                 .==: "Abercrombie, Neil, Male, Tan, 2/13/1943",
+  (Nothing :: Maybe Person) .==: "Abercrombie, Neil, abc, Tan, 2/13/1943",
+  (Nothing :: Maybe Person) .==: "Abercrombie, Neil, Male, Tan, abc",
+  Just steve                .==: "Smith | Steve | D | M | Red | 3-3-1985",
+  Just anna                 .==: "Hingis Martina M F 4-2-1979 Green",
+  (Nothing :: Maybe Person) .==: "abc"]
+  where neil = Person "Neil" "Abercrombie" Male (Date 1943 2 13) "Tan"
+        anna = Person "Martina" "Hingis" Female (Date 1979 4 2) "Green"
+        steve = Person "Steve" "Smith" Male (Date 1985 3 3) "Red"
+
+
+(.==:) :: (Eq p, Show p, Parse p) => Maybe p -> String -> TestTree
+expected .==: string = (expected .==. parse string)
