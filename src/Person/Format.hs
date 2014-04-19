@@ -13,12 +13,12 @@ formatPeople = (T.intercalate "\n") . (map showText)
 format :: Text -> Text -> Text -> Text
 format one two three = T.concat ["Output 1:\n", one, "\nOutput 2:\n", two, "\nOutput 3:\n", three, "\n"]
 
-output1 ppl = formatPeople (sortBy genderThenLastNameOrder ppl)
-output2 ppl = formatPeople (sortBy birthDateOrder ppl)
-output3 ppl = formatPeople (sortBy (flip lastNameOrder) ppl)
-
-outputPeople ppl = format (output1 ppl) (output2 ppl) (output3 ppl)
+outputPeople :: [Person] -> Text
+outputPeople ppl = format (output1) (output2) (output3)
+  where output1 = formatPeople (sortBy genderThenLastNameOrder ppl)
+        output2 = formatPeople (sortBy birthDateOrder ppl)
+        output3 = formatPeople (sortBy (flip lastNameOrder) ppl)
 
 output :: Text -> Text
-output raw = outputPeople ppl
+output _raw = outputPeople ppl
            where ppl = []

@@ -15,6 +15,7 @@ data Date = Date { year :: Integer, month :: Integer, day :: Integer } deriving 
 instance Show Person where
   show (Person firstName' lastName' gender' birthDate' color') =
     T.unpack $ T.intercalate " " [lastName', firstName', showText gender', showText birthDate', color']
+
 instance Show Date where
   show (Date year' month' day') = intercalate "/" (map show [month', day', year'])
 
