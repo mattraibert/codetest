@@ -8,7 +8,7 @@ import Person
 import Person.Parse
 
 tests :: TestTree
-tests = testGroup "parsing the files" [
-  --niel .==. parse "Abercrombie, Neil, Male, Tan, 2/13/1943"
-                                      ]
-  where niel = Person "Jane" "Jay" Female (Date 1979 4 2) "Green"
+tests = testGroup "parsing" [
+  Just Male .==. parse "Male",
+  Just Female .==. parse "Female",
+  Nothing .==. (parse "abc" :: Maybe Gender)]
