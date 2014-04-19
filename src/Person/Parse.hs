@@ -15,7 +15,7 @@ instance Parse Gender where
   parse _ = Nothing
 
 instance Parse Date where
-  parse dateString = f (map readText (T.splitOn "/" rdash))
-    where rdash = T.replace "-" "/" (T.pack dateString)
-          f [month', day', year'] = Just (Date year' month' day')
-          f _ = Nothing
+  parse = toDate . extractMdy
+    where extractMdy = (map readText) . (T.splitOn "/") . (T.replace "-" "/") . (T.pack)
+          toDate [month', day', year'] = Just (Date year' month' day')
+          toDate _ = Nothing
