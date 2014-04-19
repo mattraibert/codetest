@@ -12,7 +12,7 @@ data Gender = Female | Male deriving (Show, Eq, Ord, Read)
 data Date = Date { year :: Integer, month :: Integer, day :: Integer } deriving (Eq, Ord, Show)
 
 instance Show Person where
-  show (Person (firstName') lastName' _ (Date year' _ _) _) = T.unpack $ T.intercalate " " [T.init firstName', lastName', showText year'] 
+  show (Person (firstName') lastName' _ (Date year' _ _) _) = T.unpack $ T.intercalate " " [firstName', lastName', showText year'] 
 
 genderOrder :: Person -> Person -> Ordering
 genderOrder = comparing gender
