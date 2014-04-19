@@ -16,4 +16,4 @@ main = do
   comma <- readFileText "code_test_files/comma.txt"
   space <- readFileText "code_test_files/space.txt"
   defaultMain $
-    model .==. (output $ T.concat [pipe,comma,space])
+    model .==. (output $ T.intercalate "\n" [pipe,comma,space])

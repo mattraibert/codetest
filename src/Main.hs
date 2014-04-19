@@ -11,4 +11,4 @@ main = do
   pipe <- readFileText "code_test_files/pipe.txt"
   comma <- readFileText "code_test_files/comma.txt"
   space <- readFileText "code_test_files/space.txt"
-  putStrLn $ T.unpack (output $ T.concat [pipe,comma,space])
+  putStrLn $ T.unpack (output $ T.intercalate "\n" [pipe,comma,space])
