@@ -14,7 +14,7 @@ cabal-version:       >=1.10
 
 executable codetest
   hs-source-dirs: src
-  main-is: Main.hs
+  main-is: Codetest/Main.hs
   other-extensions:    OverloadedStrings, ScopedTypeVariables, NoMonomorphismRestriction, QuasiQuotes
   build-depends:       
     base >=4.6 && <4.7, 

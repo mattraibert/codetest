@@ -1,19 +1,15 @@
 {-# Language OverloadedStrings, FlexibleInstances, TypeFamilies, NoMonomorphismRestriction, ScopedTypeVariables, FlexibleContexts #-}
 module Test.Acceptance where
 
-import qualified Data.Text as T
 import Test.Tasty
-
 import Test.Helper
-
-import Person.Format
 import Common
+
+import Codetest.Main hiding (main)
 
 main :: IO ()
 main = do
   model <- readFileText "code_test_files/model_output.txt"
-  pipe <- readFileText "code_test_files/pipe.txt"
-  comma <- readFileText "code_test_files/comma.txt"
-  space <- readFileText "code_test_files/space.txt"
+  files <- readFiles
   defaultMain $
-    model $==$ (output $ T.intercalate "\n" [pipe,comma,space])
+    model $==$ doMain files

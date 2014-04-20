@@ -1,14 +1,24 @@
 {-# Language OverloadedStrings, FlexibleInstances, TypeFamilies, NoMonomorphismRestriction, ScopedTypeVariables, FlexibleContexts #-}
-module Main where
+module Codetest.Main where
 
-import qualified Data.Text as T
+import Data.Text (Text)
+import qualified Data.Text.IO as T
 
+import Person.Parse
 import Person.Format
 import Common
 
-main :: IO ()
-main = do
+readFiles :: IO [Text]
+readFiles = do
   pipe <- readFileText "code_test_files/pipe.txt"
   comma <- readFileText "code_test_files/comma.txt"
   space <- readFileText "code_test_files/space.txt"
-  putStrLn $ T.unpack (output $ T.intercalate "\n" [pipe,comma,space])
+  return [pipe, comma, space]
+
+doMain :: [Text] -> Text
+doMain = outputPeople . parsePeople
+
+main :: IO ()
+main = do
+  files <- readFiles
+  T.putStr $ doMain files

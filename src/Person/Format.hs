@@ -5,7 +5,6 @@ import qualified Data.Text as T
 import Data.Text (Text)
 import Data.List
 import Person
-import Person.Parse
 import Common
 
 class Format p where
@@ -21,28 +20,16 @@ instance Format Date where
 instance Format Gender where
   format = showText
 
+instance Format f => Format [f] where
+  format = (T.intercalate "\n") . (map format)
+
 data Output = Output Text Text Text
 
 instance Format Output where
-  format (Output one two three) = T.intercalate "\n" ["Output 1:",
-                                                      one,
-                                                      "",
-                                                      "Output 2:",
-                                                      two,
-                                                      "",
-                                                      "Output 3:",
-                                                      three,
-                                                      "",
-                                                      ""]
-
-formatPeople :: [Person] -> Text
-formatPeople = (T.intercalate "\n") . (map format)
+  format (Output one two three) = T.intercalate "\n" ["Output 1:", one, "", "Output 2:", two, "", "Output 3:", three, "", ""]
 
 outputPeople :: [Person] -> Text
 outputPeople ppl = format (Output output1 output2 output3)
-  where output1 = formatPeople (sortBy genderThenLastNameOrder ppl)
-        output2 = formatPeople (sortBy birthDateOrder ppl)
-        output3 = formatPeople (sortBy (flip lastNameOrder) ppl)
-
-output :: Text -> Text
-output raw = outputPeople $ parsePeople raw
+  where output1 = format (sortBy genderThenLastNameOrder ppl)
+        output2 = format (sortBy birthDateOrder ppl)
+        output3 = format (sortBy (flip lastNameOrder) ppl)
