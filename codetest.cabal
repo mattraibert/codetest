@@ -19,6 +19,7 @@ executable codetest
   build-depends:       
     base >=4.6 && <4.7, 
     text >=0.11 && <0.12,
+    HUnit-Diff,
     tasty-hunit,
     tasty
 
