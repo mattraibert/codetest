@@ -1,11 +1,15 @@
-SANDBOXFLAGS=-no-user-package-db -package-db=.cabal-sandbox/x86_64-linux-ghc-7.6.3-packages.conf.d
-RUN=runghc $(SANDBOXFLAGS) -isrc
+RUN=cabal exec runghc -- -isrc
 BINDIR=.cabal-sandbox/bin
-EXECUTABLE=codetest
+EXECUTABLE=$(BINDIR)/codetest
 BUILDDIR=dist
 
-all: test acceptance install
-install:
+.PHONY: all install clean test acceptance init deps sandbox
+
+all: init install test acceptance
+
+install: $(EXECUTABLE)
+
+$(EXECUTABLE):
 	cabal install -j
 
 test:
@@ -15,4 +19,20 @@ acceptance:
 	$(RUN) src/Test/Acceptance.hs
 
 clean:
-	rm -rf $(BUILDDIR) && rm $(BINDIR)/$(EXECUTABLE)
+	rm -rf $(BUILDDIR) && rm $(EXECUTABLE)
+
+init: deps sandbox
+
+
+DEPS=deps/HUnit-Diff
+
+deps: $(DEPS)
+
+$(DEPS):
+	git clone git@github.com:mattraibert/HUnit-Diff.git deps/HUnit-Diff
+
+sandbox: deps cabal.sandbox.config
+
+cabal.sandbox.config:
+	cabal sandbox init
+	cabal sandbox add-source $(DEPS)
