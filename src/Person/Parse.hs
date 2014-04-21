@@ -25,8 +25,13 @@ instance Parse Date where
           toDate [month', day', year'] = Just (Date year' month' day')
           toDate _ = Nothing
 
-parsePeople :: Parse p => [Text] -> [p]
-parsePeople raw = catMaybes $ map parseText (T.lines $ T.intercalate "\n" raw)
+instance Parse p => Parse [p] where
+  parse = sequence . (map parse) . lines
+
+parsePeople :: [Text] -> [Person]
+parsePeople raw = case parseText (T.intercalate "\n" raw) of
+  Just people -> people
+  Nothing -> []
 
 instance Parse Person where
   parse raw
